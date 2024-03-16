@@ -13,17 +13,23 @@ function Input(props) {
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
+    const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+    if (
+      (name === "title" && value.length <= 30 && regex.test(value)) ||
+      (name === "content" && value.length <= 100 && regex.test(value))
+    ) {
+      setNote((prevNote) => {
+        return {
+          ...prevNote,
+          [name]: value,
+        };
+      });
+    }
   }
 
   function submitNote() {
     if (note.title === "" || note.content === "") {
-      alert("Please provide a title");
+      alert("Please provide a title and content");
       return;
     }
 
@@ -39,17 +45,18 @@ function Input(props) {
   }
 
   return (
-    <div className="w-[600px] rounded border-[1px] text-white border-[#5F6367] bg-transparent m-auto py-8 px-6 h-fit relative">
+    <div className="w-[600px] rounded border-[1px] text-[var(--gray-0)] border-[var(--gray-6)] hover:border-[var(--gray-5)] bg-[var(--gray-9)] m-auto py-8 px-6 h-fit relative">
       <input
-        className="w-full p-2 rounded border border-[#5F6367] bg-transparent outline-none transition-all	"
+        className="bg-[var(--gray-10)] w-full p-2 rounded border border-[var(--gray-6)] outline-none transition-all placeholder-[var(--gray-5)]"
         name="title"
         onChange={handleChange}
         value={note.title}
         placeholder="Title"
         onFocus={toggleExpand}
+        maxLength="30"
       />
       <textarea
-        className={`w-full mt-2 p-2 rounded border border-[#5F6367] bg-transparent outline-none transition-all resize-none ${
+        className={`w-full bg-[var(--gray-10)] mt-2 p-2 rounded border border-[var(--gray-6)] outline-none transition-all resize-none placeholder-[var(--gray-5)] ${
           isExpanded ? "block" : "hidden"
         }`}
         name="content"
@@ -57,9 +64,10 @@ function Input(props) {
         value={note.content}
         placeholder="Take a note..."
         rows="3"
+        maxLength="100"
       />
       <button
-        className={`flex items-center justify-center bg-[#5F6367] hover:bg-[#484a4b] text-white cursor-pointer rounded-full w-[45px] h-[45px] ml-auto absolute top-[182px] right-[15px] ${
+        className={`flex items-center justify-center border-[1px] border-[var(--gray-6)] hover:border-[var(--gray-5)] bg-[var(--gray-8)] hover:bg-[var(--gray-7)] text-white cursor-pointer rounded-full w-[45px] h-[45px] ml-auto absolute top-[182px] right-[15px] ${
           isExpanded ? "block" : "hidden"
         }`}
         onClick={submitNote}

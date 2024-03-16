@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Notes from "./components/Notes";
-import Input from "./components/input";
+import Input from "./components/Input";
 
 function App() {
   const initialNotes = JSON.parse(localStorage.getItem("notes")) || [];

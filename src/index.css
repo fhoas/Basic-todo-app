@@ -6,14 +6,29 @@
     margin    : 0;
     padding   : 0;
     box-sizing: border-box;
+    font-family: var(--main-font);
 }
 
 body {
-    background-color   : #202124;
-    /* background-color: #0D0A09; */
+    background-color   : var(--gray-10);
     min-height         : 100vh;
     height             : 100%;
-    padding            : 100px 50px;
+    padding            : 50px;
+}
+
+:root {
+  --gray-0: #f9f9f9;
+  --gray-1: #eee;
+  --gray-2: #e6e6e6;
+  --gray-3: #ddd;
+  --gray-4: #bbb;
+  --gray-5: #999;
+  --gray-6: #666;
+  --gray-7: #2c2c2c;
+  --gray-8: #252525;
+  --gray-9: #1f1f1f;
+  --gray-10: #181818;
+  --main-font: "Cabinet Grotesk", sans-serif;
 }
 
 ::selection {
@@ -49,19 +64,12 @@ body {
 
 
 
-.header p {
-    margin   : 0;
-    animation: scrollText 30s linear infinite;
-}
-
 @keyframes scrollText {
     0% {
         transform: translateX(2250px);
-        /* Başlangıç konumu */
     }
 
     100% {
         transform: translateX(-100%);
-        /* Bitiş konumu */
     }
 }
