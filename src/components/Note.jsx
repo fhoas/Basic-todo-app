@@ -6,18 +6,30 @@ import CheckIcon from "@mui/icons-material/Check";
 function Note(props) {
   const [editedTitle, setEditedTitle] = useState(props.title);
   const [editedContent, setEditedContent] = useState(props.content);
-  const [editMode, setEditMode] = useState(false); // Her not için ayrı editMode durumu
+  const [editMode, setEditMode] = useState(false);
 
   function handleClick() {
     props.onDelete(props.id);
   }
 
   function handleEdit() {
+    const regex = /^[a-zA-Z0-9\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
+    if (
+      editedTitle.length > 30 ||
+      !regex.test(editedTitle) ||
+      editedContent.length > 100 ||
+      !regex.test(editedContent)
+    ) {
+      alert("Please provide valid title and content within limits.");
+      return;
+    }
+
     if (!editMode) {
-      setEditMode(true); // Edit butonuna basıldığında sadece ilgili notun editMode durumunu güncelle
+      setEditMode(true);
     } else {
       props.onEdit(props.id, editedTitle, editedContent);
-      setEditMode(false); // Kaydet butonuna basıldığında editMode durumunu kapat
+      setEditMode(false);
     }
   }
 
@@ -67,7 +79,7 @@ function Note(props) {
           onClick={handleCheck}
         >
           <CheckIcon />
-          <span>{props.isChecked ? "Uncheck" : "Check"}</span>
+          <span className="ml-1">{props.isChecked ? "Uncheck" : "Check"}</span>
         </button>
         <button
           className={`flex items-center justify-center w-1/3 bg-[var(--gray-10)] border-[var(--gray-6)] border-t text-white py-2 hover:bg-[var(--gray-8)] ${
@@ -76,14 +88,14 @@ function Note(props) {
           onClick={handleEdit}
         >
           <EditIcon />
-          <span>{editMode ? "Save" : "Edit"}</span>
+          <span className="ml-1">{editMode ? "Save" : "Edit"}</span>
         </button>
         <button
           className={`flex items-center justify-center w-1/3 bg-[var(--gray-10)] border-[var(--gray-6)] border-t text-white py-2 hover:bg-[var(--gray-8)]`}
           onClick={handleClick}
         >
           <DeleteIcon />
-          <span>Delete</span>
+          <span className="ml-1">Delete</span>
         </button>
       </div>
     </div>

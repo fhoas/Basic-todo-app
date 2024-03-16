@@ -13,7 +13,8 @@ function Input(props) {
   function handleChange(event) {
     const { name, value } = event.target;
 
-    const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+    const regex = /^[a-zA-Z0-9\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
     if (
       (name === "title" && value.length <= 30 && regex.test(value)) ||
       (name === "content" && value.length <= 100 && regex.test(value))
